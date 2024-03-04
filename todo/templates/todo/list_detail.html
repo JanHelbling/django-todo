@@ -7,7 +7,7 @@
 
   {% if list_slug != "mine" %}
     <button class="btn btn-primary" id="AddTaskButton" type="button"
-      data-toggle="collapse" data-target="#AddEditTask">Add Task</button>
+      data-toggle="collapse" data-target="#AddEditTask" onclick="$('#AddEditTask').collapse()">Add Task</button>
 
     {# Task edit / new task form #}
     <div id="AddEditTask" class="collapse">

@@ -1,0 +1,12 @@
+Dear {{ task.notify_done_user.first_name }}
+
+
+{{ task.title }} is Completed!
+
+{% if task.note %}
+{% autoescape off %}
+Note: {{ task.note }}
+{% endautoescape %}
+{% endif %}
+
+Regards!

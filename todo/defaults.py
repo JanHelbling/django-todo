@@ -15,7 +15,7 @@ hash = {
 # TODO_DEFAULT_LIST_SLUG
 # TODO_MAIL_BACKENDS
 # TODO_MAIL_TRACKERS
-
+# MAILTO_USER_IF_DONE
 
 def defaults(key: str):
     """Try to get a setting from project settings.

@@ -154,6 +154,9 @@ TODO_COMMENT_CLASSES = []
 # see Mail Tracking below.
 TODO_MAIL_BACKENDS
 TODO_MAIL_TRACKERS
+
+# Notify User if Task done
+MAILTO_USER_IF_DONE
 ```
 
 The current django-todo version number is available from the [todo package](https://github.com/shacker/django-todo/blob/master/todo/__init__.py):

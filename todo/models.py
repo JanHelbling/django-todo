@@ -5,7 +5,7 @@ import os
 import textwrap
 
 from django.conf import settings
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.transaction import Atomic, get_connection
 from django.urls import reverse
@@ -89,6 +89,8 @@ class Task(models.Model):
         related_name="todo_assigned_to",
         on_delete=models.CASCADE,
     )
+    notify_done_user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True)
+    completed_by = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True)
     note = models.TextField(blank=True, null=True)
     priority = models.PositiveIntegerField(blank=True, null=True)
 

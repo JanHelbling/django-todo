@@ -100,6 +100,17 @@ def todo_send_mail(user, task, subject, body, recip_list):
         )
         message.send()
 
+def send_notify_done(task):
+    """
+    Send email if task is completed to task.notify_done_user.
+    """
+    user = task.notify_done_user
+    email = user.email
+    filename = Attachment.object.get(task=task).filename()
+    subject = render_to_string("todo/email/task_done_subject.txt", {"task": task})
+    body = render_to_string("todo/email/task_done_body.txt", {"task": task})
+    recip_list = [user.email]
+    todo_send_mail(task.completed_by, task, subject, body, recip_list)
 
 def send_notify_mail(new_task):
     """
@@ -144,12 +155,15 @@ def send_email_to_thread_participants(task, msg_body, user, subject=None):
     todo_send_mail(user, task, email_subject, email_body, recip_list)
 
 
-def toggle_task_completed(task_id: int) -> bool:
+def toggle_task_completed(task_id: int, user) -> bool:
     """Toggle the `completed` bool on Task from True to False or vice versa."""
     try:
         task = Task.objects.get(id=task_id)
         task.completed = not task.completed
+	task.completed_by = user
         task.save()
+        if defaults("MAILTO_USER_IF_DONE") and task.notify_done_user:
+            send_notify_done(task)
         return True
 
     except Task.DoesNotExist:

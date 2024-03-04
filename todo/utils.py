@@ -162,7 +162,7 @@ def toggle_task_completed(task_id: int, user) -> bool:
         task.completed = not task.completed
 	task.completed_by = user
         task.save()
-        if defaults("MAILTO_USER_IF_DONE") and task.notify_done_user:
+        if defaults("TODO_MAILTO_USER_IF_DONE") and task.notify_done_user:
             send_notify_done(task)
         return True
 
